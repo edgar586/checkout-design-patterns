@@ -11,7 +11,8 @@ public class _001_CheckoutPayment {
         } else if ("TRANSFER".equals(paymentType)) {
             System.out.println("Generando referencia bancaria...");
             System.out.println("Procesando transferencia por: " + amount);
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("Tipo de pago no soportado");
         }
     }
