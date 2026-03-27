@@ -1,5 +1,8 @@
 package workshop.model;
 
+import workshop.strategy.DiscountStrategy;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +17,11 @@ public class Order {
     private final String discountCode;
     private double totalAmount;
     private String status;;
+    private final DiscountStrategy discountStrategy;
 
     public Order(String customerName, String customerEmail, String shippingAddress,
                  List<OrderItem> items, String paymentMethod, String discountCode) {
+        this.discountStrategy = null;
         this.orderId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -27,6 +32,20 @@ public class Order {
         this.totalAmount = calculateTotalAmount();
         this.status = "CREATED";
     }
+
+public Order(DiscountStrategy discountStrategy, double originalAMount){
+        this.discountStrategy = discountStrategy;
+    this.orderId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    this.customerName = "customerName";
+    this.customerEmail = "customerEmail";
+    this.shippingAddress = "shippingAddress";
+    this.items = new ArrayList<>();
+    this.paymentMethod = "paymentMethod";
+    this.discountCode = "discountCode";
+
+}
+
+
 
     private double calculateTotalAmount() {
         return items.stream().mapToDouble(OrderItem::getTotalPrice).sum();
